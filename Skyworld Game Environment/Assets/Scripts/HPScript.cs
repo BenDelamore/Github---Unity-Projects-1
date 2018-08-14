@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class HPScript : MonoBehaviour {
 
+	//public GameObject Particle;
+
 	public int HPValue = 10;
-	public int HPMaxValue = 10;
+	public int MaxHPValue = 10;
 
 	public void Apply ( int value )
 	{
-		// Hi :)
-		//		if (dmg < 0)
-		//			dmg = dmg * -1;
-
 		HPValue += value;
 
 		if (HPValue <= 0)
 			Die ();
-		else if (HPValue > HPMaxValue)
-			HPValue = HPMaxValue;
+		else if (HPValue > MaxHPValue)
+			HPValue = MaxHPValue;
+
 	}
 
 	public void TakeDamage ( int dmg )
 	{
-		// Hi :)
-//		if (dmg < 0)
-//			dmg = dmg * -1;
+		if (dmg < 0)
+			dmg = dmg * -1;
 
 		HPValue = HPValue - dmg;
+
+		//Particle Effect -- instantiate a particle and orient it with this object
+		//Instantiate (Particle, this.transform.position, this.transform.rotation);
 
 		if (HPValue <= 0)
 			Die ();
@@ -35,17 +36,19 @@ public class HPScript : MonoBehaviour {
 
 	public void Heal (int value)
 	{
-		
 		if (value < 0)
 			value = value * -1;
 		
-		HPValue = HPValue + value;
+		HPValue += value;
 
-		if (HPValue > HPMaxValue)
-			HPValue = HPMaxValue;
+		if (HPValue > MaxHPValue)
+			HPValue = MaxHPValue;
+
+
+
 	}
 
-	private void Die ()
+	void Die ()
 	{
 		Destroy (this.gameObject);
 	}
